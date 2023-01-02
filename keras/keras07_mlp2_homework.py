@@ -35,7 +35,6 @@ result = model.predict([[10,1.4,0]])
 print('Loss is', loss)
 print('Result is', result)
 
-
 '''
 결과
 Loss is 0.12993194162845612
