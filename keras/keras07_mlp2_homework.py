@@ -37,6 +37,6 @@ print('Result is', result)
 
 
 '''
-Loss is 0.14583855867385864
-Result is [[20.257566]]
+Loss is 0.12993194162845612
+Result is [[20.256145]]
 '''
