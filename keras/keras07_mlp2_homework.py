@@ -37,6 +37,7 @@ print('Result is', result)
 
 
 '''
+결과
 Loss is 0.12993194162845612
 Result is [[20.256145]]
 '''

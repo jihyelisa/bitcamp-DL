@@ -14,7 +14,7 @@ print(y.shape)   #(10,)
     #데이터의 행렬구조를 반환 >>> (행, 열)
 
 x = x.T   #행-열 전치
-print(x.shape)   # (10, 2)
+print(x.shape)   #(10, 2)
 
 #'행 무시, 열 우선' 기억하기
 #열 = Column, Feature, 특성
@@ -43,6 +43,7 @@ print('loss:', loss)
 
 result = model.predict([[10, 1.4]])
 print('result is', result)
+
 
 '''
 loss: 0.008892178535461426

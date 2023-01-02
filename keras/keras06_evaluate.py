@@ -51,8 +51,9 @@ print('loss:', loss)
 result = model.predict([7])
 print('7의 결과: ', result)
 
-    #결과 판단의 기준은 predict가 아닌 loss값
-    #loss값이 작을수록 w값이 최적화되었다는 의미이기 때문
+    #결과판단의 기준은 predict가 아닌 loss값
+    #loss값이 작을수록 w값이 최적화되었다는 의미이므로
+
 
 '''
 batch_size
