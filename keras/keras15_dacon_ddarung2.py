@@ -73,8 +73,13 @@ model.add(Dense(1))
 
 
 ##3. 컴파일, 훈련
+import time
+
 model.compile(loss='mse', optimizer='adam')
-model.fit(x_train, y_train, epochs=1000, batch_size=30)
+start = time.time()
+model.fit(x_train, y_train, epochs=150, batch_size=30)
+end = time.time()
+
 
 
 
@@ -89,6 +94,8 @@ print("RMSE:", RMSE(y_test, y_predict))
 
 r2 = r2_score(y_test, y_predict)
 print("R2:", r2)
+
+print("걸린 시간:", end - start)
 
 
 #5. 제출 파일
