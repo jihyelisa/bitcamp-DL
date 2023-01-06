@@ -5,11 +5,12 @@ from tensorflow.keras.layers import Dense
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, r2_score
 
+
+
 ##1. 데이터
 path = './_data/ddarung/'
 train_csv = pd.read_csv(path + 'train.csv', index_col=0)
 test_csv = pd.read_csv(path + 'test.csv', index_col=0)
-train_csv, test_csv = train_csv.dropna(axis=0), test_csv.dropna(axis=0)
 # index_col=0 : 데이터에서 제외할 인덱스 칼럼이 0열에 있음
 submission = pd.read_csv(path + 'submission.csv', index_col=0)
 
@@ -37,7 +38,10 @@ submission = pd.read_csv(path + 'submission.csv', index_col=0)
 # #  9   count                   1459 non-null   float64        .
 
 # # 결측치가 있는 데이터를 어떻게 처리할까?
-# # 1. 삭제해서 사용하지 않는다.
+# # 1. 결측치가 있는 행을 삭제한다.
+print(train_csv.isnull().sum())   # 열 별 결측치 보여줌
+train_csv = train_csv.dropna()
+# # 2. 결측치 자리에 값을 채워 넣는다.
 
 # # print(test_csv.info())
 # # print(train_csv.describe())
@@ -47,6 +51,7 @@ x = train_csv.drop(['count'], axis=1)   #칼럼의 축 axis
 y = train_csv['count']
 # print(y)
 # print(y.shape)   # (1459,)
+
 
 x_train, x_test, y_train, y_test = train_test_split(
     x, y, 
@@ -64,9 +69,14 @@ model.add(Dense(50, activation="relu"))
 model.add(Dense(1))
 
 
+
 ##3. 컴파일, 훈련
+import time
+
 model.compile(loss='mse', optimizer='adam')
-model.fit(x_train, y_train, epochs=150, batch_size=1)
+start = time.time()
+model.fit(x_train, y_train, epochs=150, batch_size=30)
+end = time.time()
 
 
 
@@ -79,7 +89,18 @@ def RMSE(y_test, y_predict):
     return np.sqrt(mean_squared_error(y_test, y_predict))
 print("RMSE:", RMSE(y_test, y_predict))
 
+r2 = r2_score(y_test, y_predict)
+print("R2:", r2)
+
+print("걸린 시간:", end - start)
 
 
-##5. 제출 파일
-# y_submit = model.predict(test_csv)
+
+#5. 제출 파일
+y_submit = model.predict(test_csv)
+# print(y_submit.shape)   # (715, 1)
+
+# .to_csv()를 사용해서
+# submission_0105.csv를 완성해보기
+submission['count'] = y_submit
+submission.to_csv(path + 'submission_010515.csv')
