@@ -54,7 +54,7 @@ r2 = r2_score(y_test, y_predict)
 print("R2:", r2)
 
 
-#5. 제출 파일
+##5. 제출 파일
 submission['count'] = model.predict(test_csv)
 submission.to_csv(path + 'mySubmission_0106_.csv')
 

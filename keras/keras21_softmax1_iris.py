@@ -19,7 +19,7 @@ datasets = load_iris()
 #                 - Iris-Versicolour
 #                 - Iris-Virginica
 
-print(datasets.feature_names)   #  판다스 .columns
+print(datasets.feature_names)   #  pandas에서는 .columns
 
 x = datasets.data
 y = datasets['target']
@@ -28,7 +28,6 @@ print(y.shape)  # (150,)
 
 from tensorflow.keras.utils import to_categorical
 y = to_categorical(y)
-
 
 
 x_train, x_test, y_train, y_test = train_test_split(
@@ -68,7 +67,7 @@ model.fit(x_train, y_train, epochs=30, batch_size=1,
 loss, accuracy = model.evaluate(x_test, y_test)
 print('accuray:', accuracy)
 print(y_test[:5])
-y_predict = model.predict(x_test[:5])
+y_predict = model.predict(x_test)
 print(y_predict)
 
 
@@ -99,4 +98,45 @@ y_test = np.argmax(y_test, axis=1)
 # 가장 큰 자릿값만 뽑아냄 (원핫 인코딩 한 것을 다시 원상복귀 시켜줌)
 
 acc = accuracy_score(y_test, y_predict) # 원값과 예측값을 비교한 accuracy값 리턴
-print(acc)
+print("accuracy_score:", acc)
+
+
+
+'''
+x_train, x_test, y_train, y_test = train_test_split(
+    x, y, shuffle=True, random_state=123,
+    # 분류문제에서 그냥 shuffle을 사용할 때 발생할 수 있는 문제
+    # 데이터 상의 비율이 한쪽으로 치우쳐 있을 때,
+    # 인공지능의 예측 결과도 높은 비율의 결과 쪽으로 치우칠 수 있다
+    # ex. 암환자인 사람 10%, 암환자가 아닌 사람 90%
+    #     대부분을 암환자가 아닌 사람으로 예측해도 제법 정확한 결과임
+    test_size=0.2,
+    stratify=y  # 결과 비율을 원래 데이터와 맞춰줌
+)
+
+
+##2. 모델구성
+model = Sequential()
+model.add(Dense(50, activation='relu', input_shape=(4,)))
+model.add(Dense(40, activation='sigmoid'))
+model.add(Dense(30, activation='relu'))
+model.add(Dense(20, activation='relu'))
+model.add(Dense(3, activation='softmax'))
+# 다중분류 activation: softmax
+
+# softmax의 원리
+# 결과의 선택지(여기서는 꽃의 종류) 별 비율을 합해 100%(=1)에 가깝게 나오도록 함
+# 마지막 노드의 개수는 최종 선택지의 가짓수
+
+
+##3. 컴파일, 훈련
+model.compile(loss='categorical_crossentropy', optimizer='adam',
+              metrics=['accuracy'])
+model.fit(x_train, y_train, epochs=30, batch_size=1,
+          validation_split=0.2, verbose=0)
+          
+          
+
+결과
+accuracy_score: 0.9666666666666667
+'''
