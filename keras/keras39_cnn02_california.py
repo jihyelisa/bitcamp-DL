@@ -24,20 +24,20 @@ scaler = MinMaxScaler()
 x_train = scaler.fit_transform(x_train)
 x_test = scaler.transform(x_test)
 
-print(x_train.shape, x_test.shape, y_train.shape)  # (14447, 8) (6193, 8) (14447,)
+print(x_train.shape, x_test.shape, y_train.shape, y_test.shape)  # (14447, 8) (6193, 8) (14447,) (6193,)
 
-x_train = x_train.reshape(14447, 4, 2, 1)
-x_test = x_test.reshape(6193, 4, 2, 1)
+x_train = x_train.reshape(14447, 2, 2, 2)
+x_test = x_test.reshape(6193, 2, 2, 2)
 
-print(x_train.shape, x_test.shape, y_train.shape)  # (14447, 8) (6193, 8) (14447,)
+print(x_train.shape, x_test.shape)  # (14447, 2, 2, 2) (6193, 2, 2, 2)
 
 
 
 ##2. 모델구성
 model = Sequential()
-model.add(Conv2D(40, (2, 1), activation ='relu', input_shape=(4, 2, 1)))
+model.add(Conv2D(40, (2, 1), activation ='relu', input_shape=(2, 2, 2)))
 model.add(Dropout(0.3))
-model.add(Conv2D(50, (2, 1), activation ='relu'))
+model.add(Conv2D(50, (1, 1), activation ='relu'))
 model.add(Dropout(0.3))
 model.add(Flatten())
 model.add(Dense(60, activation ='relu'))
@@ -67,3 +67,9 @@ print("RMSE:", RMSE(y_test, y_predict))
 
 r2 = r2_score(y_test, y_predict)
 print("R2:", r2)
+
+'''
+loss: 0.4548068642616272
+RMSE: 0.6360222379800717
+R2: 0.6972386495947811
+'''
