@@ -18,14 +18,13 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Conv2D, Dense, Flatten, Dropout
 
 model = Sequential()
-model.add(Conv2D(filters=150, kernel_size=(2,2),
+model.add(Conv2D(filters=180, kernel_size=(4,4),
                  input_shape=(32,32,3)))
-model.add(Conv2D(filters=100, kernel_size=(2,2)))
-model.add(Conv2D(filters=50, kernel_size=(2,2)))
+model.add(Conv2D(filters=160, kernel_size=(2,2)))
+model.add(Conv2D(filters=140, kernel_size=(2,2)))
 model.add(Flatten())
-model.add(Dense(100, activation='relu'))
-model.add(Dense(200, activation='relu'))
-model.add(Dense(300, activation='relu'))
+model.add(Dense(140, activation='relu'))
+model.add(Dense(120, activation='relu'))
 model.add(Dropout(0.25))
 model.add(Dense(100, activation='softmax'))
 
@@ -51,7 +50,7 @@ model.compile(loss='sparse_categorical_crossentropy',
               optimizer='adam',
               metrics=['acc'])
 model.fit(x_train, y_train, epochs=100, verbose=3,
-          validation_split=0.125, callbacks=[es, mcp], batch_size=10)
+          validation_split=0.1, callbacks=[es, mcp], batch_size=100)
 
 
 ##4. 평가, 예측
@@ -59,3 +58,21 @@ model.fit(x_train, y_train, epochs=100, verbose=3,
 results = model.evaluate(x_test, y_test)
 print('loss:', results[0])
 print('acc:', results[1])
+
+
+'''
+model = Sequential()
+model.add(Conv2D(filters=180, kernel_size=(2,2),
+                 input_shape=(32,32,3)))
+model.add(Conv2D(filters=160, kernel_size=(2,2)))
+model.add(Conv2D(filters=140, kernel_size=(2,2)))
+model.add(Flatten())
+model.add(Dense(140, activation='relu'))
+model.add(Dense(120, activation='relu'))
+model.add(Dropout(0.25))
+model.add(Dense(100, activation='softmax'))
+
+결과
+loss: 4.605221748352051
+acc: 0.009999999776482582
+'''

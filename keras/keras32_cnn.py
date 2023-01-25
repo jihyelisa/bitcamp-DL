@@ -8,7 +8,7 @@ model = Sequential()
 # (batch_size, rows, column, channels)
 model.add(Conv2D(filters=10, kernel_size=(2, 2),
                  input_shape=(5, 5, 1)))            # (N, 4, 4, 10)
-                 # 5x5로 쪼갠 이미지 1종을 넣고,
+                 # 5x5로 쪼갠 흑백 이미지를 넣고,
                  # 2x2마다 자른 후 이어붙여,
                  # 10장으로 늘리겠다는 의미
                  # filter - output과 유사한 개념

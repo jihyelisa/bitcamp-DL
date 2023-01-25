@@ -21,12 +21,12 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Conv2D, Dense, Flatten, Dropout
 
 model = Sequential()
-model.add(Conv2D(filters=150, kernel_size=(2, 2),
+model.add(Conv2D(filters=100, kernel_size=(2, 2),
                  input_shape=(32, 32, 3), activation='relu'))
-model.add(Conv2D(filters=100, kernel_size=(2, 2), activation='relu'))
+model.add(Conv2D(filters=75, kernel_size=(2, 2), activation='relu'))
 model.add(Conv2D(filters=50, kernel_size=(2, 2), activation='relu'))
 model.add(Flatten())
-model.add(Dense(100, activation='relu'))
+model.add(Dense(80, activation='relu'))
 # model.add(Dropout(0.25))
 model.add(Dense(50, activation='relu'))
 model.add(Dense(10, activation='softmax'))
@@ -38,7 +38,7 @@ from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint
 import datetime
 
 es = EarlyStopping(monitor="val_loss", mode="min",
-                    patience=10, restore_best_weights=True)
+                    patience=15, restore_best_weights=True)
 
 date = datetime.datetime.now()
 date = date.strftime("%m%d_%H%M")
@@ -53,7 +53,7 @@ model.compile(loss='sparse_categorical_crossentropy',
               optimizer='adam',
               metrics=['acc'])
 model.fit(x_train, y_train, epochs=100, verbose=3,
-          validation_split=0.125, callbacks=[es, mcp], batch_size=100)
+          validation_split=0.1, callbacks=[es, mcp], batch_size=100)
 
 
 ##4. 평가, 예측
@@ -61,3 +61,22 @@ model.fit(x_train, y_train, epochs=100, verbose=3,
 results = model.evaluate(x_test, y_test)
 print('loss:', results[0])
 print('acc:', results[1])
+
+
+
+'''
+model = Sequential()
+model.add(Conv2D(filters=100, kernel_size=(2, 2),
+                 input_shape=(32, 32, 3), activation='relu'))
+model.add(Conv2D(filters=75, kernel_size=(2, 2), activation='relu'))
+model.add(Conv2D(filters=50, kernel_size=(2, 2), activation='relu'))
+model.add(Flatten())
+model.add(Dense(100, activation='relu'))
+# model.add(Dropout(0.25))
+model.add(Dense(50, activation='relu'))
+model.add(Dense(10, activation='softmax'))
+
+결과
+loss: 1.3578414916992188
+acc: 0.5504000186920166
+'''
