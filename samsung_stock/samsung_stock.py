@@ -1,8 +1,41 @@
 import numpy as np
+import pandas as pd
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense, LSTM
+from sklearn.model_selection import train_test_split
 
 
 ##1. 데이터
 
+###1-1. 데이터 전처리
+
+
+###1-2.
+path = './_data/ddarung/'
+train_csv = pd.read_csv(path + 'train.csv', index_col=0)
+test_csv = pd.read_csv(path + 'test.csv', index_col=0)
+submission = pd.read_csv(path + 'submission.csv', index_col=0)
+
+train_csv = train_csv.dropna()
+x = train_csv.drop(['count'], axis=1)   #칼럼의 축 axis
+y = train_csv['count']
+x_train, x_test, y_train, y_test = train_test_split(
+    x, y, train_size=0.9, random_state=209)
+
+from sklearn.preprocessing import MinMaxScaler, StandardScaler
+scaler = MinMaxScaler()
+# scaler = StandardScaler()
+x_train = scaler.fit_transform(x_train)
+# fit은 기준을 정하는 느낌?? 한 번만 해준다
+x_test = scaler.transform(x_test)
+
+print(x_train.shape, x_test.shape)  # (1195, 9) (133, 9)
+x_train = x_train.reshape(1195, 3, 3)
+x_test = x_test.reshape(133, 3, 3)
+
+
+
+'''
 x1_datasets = np.array([range(100), range(301, 401)]).transpose()  # transpose: 전치
 # print(x1_datasets.shape)  # (100, 2)  # 삼전 시가, 고가
 x2_datasets = np.array([range(101, 201), range(411, 511), range(150, 250)]).transpose()
@@ -62,8 +95,4 @@ model.fit([x1_train, x2_train], y_train, epochs=200, batch_size=2)
 
 loss = model.evaluate([x1_test, x2_test], y_test)
 print('loss:', loss)
-
-
-'''
-loss: 0.00020460187806747854
 '''
