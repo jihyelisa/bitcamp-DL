@@ -18,7 +18,6 @@ model = Sequential()
 # model.add(SimpleRNN(units=160, activation='relu', input_shape=(3, 1)))
 # model.add(SimpleRNN(units=160, input_length=3, input_dim=1))
 model.add(LSTM(units=10, input_shape=(3, 1)))
-
 model.add(Dense(128, activation='relu'))
 model.add(Dense(96, activation='relu'))
 model.add(Dense(64, activation='relu'))
