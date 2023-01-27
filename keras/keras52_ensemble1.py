@@ -4,20 +4,19 @@ import numpy as np
 ##1. 데이터
 
 x1_datasets = np.array([range(100), range(301, 401)]).transpose()  # transpose: 전치
-print(x1_datasets.shape)  # (100, 2)  # 삼전 시가, 고가
+# print(x1_datasets.shape)  # (100, 2)  # 삼전 시가, 고가
 x2_datasets = np.array([range(101, 201), range(411, 511), range(150, 250)]).transpose()
-print(x2_datasets.shape)  # (100, 3)  # 아모레 시가, 고가, 종가
+# print(x2_datasets.shape)  # (100, 3)  # 아모레 시가, 고가, 종가
 
 y = np.array(range(2001, 2101))  #(100,)  # 삼전의 하루 뒤 종가
 
 from sklearn.model_selection import train_test_split
 # 3개 이상의 데이터셋도 train_test_split로 분리 가능
 x1_train, x1_test, x2_train, x2_test, y_train, y_test = train_test_split(
-    x1_datasets, x2_datasets, y, train_size=0.7, random_state=123
-)
+    x1_datasets, x2_datasets, y, train_size=0.7, random_state=123)
 
-print(x1_train.shape, x2_train.shape, y_train.shape)  # (70, 2) (70, 3) (70,)
-print(x1_test.shape, x2_test.shape, y_test.shape)  # (30, 2) (30, 3) (30,)
+# print(x1_train.shape, x2_train.shape, y_train.shape)  # (70, 2) (70, 3) (70,)
+# print(x1_test.shape, x2_test.shape, y_test.shape)  # (30, 2) (30, 3) (30,)
 
 
 ##2. 모델구성
@@ -50,14 +49,24 @@ model = Model(inputs=[input1, input2], outputs=last_output)
 # 함수형 모델은 마지막에 모델 정의
 # 모델의 시작과 끝을 명시해줌
 
-model.summary()
+# model.summary()
 
 
+##3. 컴파일, 훈련
+
+model.compile(loss='mse', optimizer='adam')
+model.fit([x1_train, x2_train], y_train, epochs=200, batch_size=2)
 
 
+##4. 평가, 예측
+
+loss = model.evaluate([x1_test, x2_test], y_test)
+print('loss:', loss)
 
 
-
+'''
+loss: 0.00020460187806747854
+'''
 
 
 
