@@ -3,7 +3,7 @@
 
 import numpy as np
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import LSTM, Dense, Bidirectional
+from tensorflow.keras.layers import LSTM, Dense, Bidirectional, Flatten
 from tensorflow.keras.layers import Conv1D
 
 
@@ -47,7 +47,8 @@ x_test = x_test.reshape(10, 4, 1)
 
 ##2. 모델구성
 model = Sequential()
-model.add(Conv1D(100, 2, input_shape=(4, 1)))
+# Bidirectional은 방향만 정해주는 것으로, 훈련 방식을 정해주어야 한다.
+model.add(Bidirectional(LSTM(160, activation='relu'), input_shape=(4, 1)))
 model.add(Dense(128, activation='relu'))
 model.add(Dense(96, activation='relu'))
 model.add(Dense(64, activation='relu'))
@@ -73,6 +74,7 @@ x_predict = x_predict.reshape(7, 4, 1)  # input 데이터 x와 같이 3차원으
 
 result = model.predict(x_predict)
 print('x_predict의 예측 결과:\n', result)
+print(result.shape)
 
 
 '''
@@ -93,13 +95,13 @@ model.fit(x_train, y_train, batch_size=1, epochs=100, verbose=3)
 
 
 결과
-loss: 0.0007399669848382473
+loss: 0.0004729446955025196
 x_predict의 예측 결과:
- [[100.00367]
- [101.00369]
- [102.00372]
- [103.0037 ]
- [104.00365]
- [105.00358]
- [106.00347]]
+ [[100.04563]
+ [101.04843]
+ [102.05127]
+ [103.05424]
+ [104.05726]
+ [105.06032]
+ [106.06343]]
 '''
