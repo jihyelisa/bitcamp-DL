@@ -22,9 +22,9 @@ amore_csv = pd.read_csv(path + 'amore_data.csv',
                         index_col=0, header=0, encoding='cp949', thousands=',', nrows=1166)
 """
 
-samsung_csv = pd.read_csv('samsung_data.csv', index_col=0, header=0,
+samsung_csv = pd.read_csv('C:/study/ai_stock_model/samsung_data.csv', index_col=0, header=0,
                           encoding='cp949', thousands=',', nrows=1166)
-amore_csv = pd.read_csv('amore_data.csv', index_col=0, header=0,
+amore_csv = pd.read_csv('C:/study/ai_stock_model/amore_data.csv', index_col=0, header=0,
                         encoding='cp949', thousands=',', nrows=1166)
 #################################################################################
 # UnicodeDecodeError: 'utf-8' codec can't decode byte 0xc0 in position 0
