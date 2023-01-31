@@ -55,6 +55,7 @@ hist = model.fit_generator(xy_train,
                     # 총 160개의 훈련 샘플이 있고
                     # batch size가 10이므로
                     # steps_per_epoch는 최대 16
+                    # 데이터 159개, batch 10일 경우? -> 16
                     epochs=200,
                     validation_data=xy_test,
                     validation_steps=4,
@@ -82,30 +83,18 @@ print('val_acc:', val_acc[-1])
 import matplotlib.pyplot as plt
 import matplotlib
 
-# 차트 한글 폰트 사용
 matplotlib.rcParams['font.family'] = 'Malgun Gothic'
 matplotlib.rcParams['axes.unicode_minus'] = False
 
 plt.figure(figsize=(9,6))
-# x 명시 안해도 됨
-# hist loss 사용, 색은 red, 선모양은 ., y 선의 이름은 loss
 plt.plot(hist.history['loss'], c='red', marker='.', label='loss')
-# hist val_loss 사용, 색은 blue, 선모양은 ., x 선의 이름은 val_loss
 plt.plot(hist.history['val_loss'], c='blue',  marker='.' , label='val_loss' )
-# 차트 gird 생성
 plt.grid() 
-# x 축 이름
 plt.xlabel('epochs')
-# y 축 이름
 plt.ylabel('loss')
-# 차트 제목
 plt.title('brain chart')
-# 그래프 선 이름 표
 plt.legend()
-#plt.legend(loc='upper right')  그래프 선 이름 표, 위치
 plt.show()
-
-
 
 import matplotlib.pyplot as plt
 plt.imshow(xy_test[10][0][0], 'gray')

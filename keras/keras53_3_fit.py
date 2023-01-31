@@ -40,7 +40,7 @@ model.add(Conv2D(120, (2,2), input_shape=(100, 100, 1)))
 model.add(Conv2D(80, (3,3), activation='relu'))
 model.add(Conv2D(40, (3,3), activation='relu'))
 model.add(Flatten())
-model.add(Dense(30, activation='relu'))
+model.add(Dense(20, activation='relu'))
 model.add(Dense(1, activation='sigmoid'))
 
 
@@ -62,11 +62,11 @@ model.compile(loss='binary_crossentropy',
 #                     # 한 epoch 종료 후 검증 시의 step 수
 #                     verbose=3)
 
-hist = model.fit(xy_train[0][0], xy_train[0][1],
-                 # ImageDataGenerator에서 배치 사이즈를 데이터 양보다 크게 잡아줌
+hist = model.fit(xy_train[0][0], xy_train[0][1],  # 둘 합쳐서 xy_train이라고만 써도 됨
+                 # ImageDataGenerator에서 배치 사이즈를 데이터 양보다 크게 잡아줄 경우?
                  # xy_train[0][0]에는 모든 x가, xy_train[0][1]에는 모든 y가 들어 있음
-                 batch_size=4, epochs=150, verbose=3,
-                 validation_data=(xy_test[0][0], xy_test[0][1]))
+                 batch_size=16, epochs=100,
+                 validation_data=(xy_test[0][0], xy_test[0][1]), verbose=3)
 
 
 
@@ -84,8 +84,8 @@ print('val_acc:', val_acc[-1])
 
 
 '''
-loss: 0.6931840181350708
-val_loss: 0.6931349039077759
-accuracy: 0.44999998807907104
+loss: 7.884765977905772e-07
+val_loss: 2.66813063621521
+accuracy: 1.0
 val_acc: 0.6000000238418579
 '''

@@ -13,6 +13,7 @@ train_datagen = ImageDataGenerator(
 test_datagen = ImageDataGenerator(rescale=1./255)
 
 # ImageDataGenerator로 생성한 객체를 Numpy Array로 변환해줌
+# 폴더별로 y값 붙여 줌 (0, 1, 2, ...)
 xy_train = train_datagen.flow_from_directory(
     './_data/brain/train/',  
     target_size=(200, 200),  # 모든 이미지를 압축 또는 증폭해 동일한 사이즈로 맞춰줌
