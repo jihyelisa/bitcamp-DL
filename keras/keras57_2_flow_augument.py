@@ -16,7 +16,7 @@ print(len(randidx))  # 40000
 x_augument = x_train[randidx].copy()
 y_augument = y_train[randidx].copy()
 # 원본을 건드리지 않도록 안전하게 copy() 사용
-# 전체 데이터 60000개 중 augument_size만큼의 데이터를 랜덤하게 골라 복사함
+# 전체 데이터 60000개 중 augument_size만큼의 데이터를 랜덤하게 골라 복사
 
 x_augument = x_augument.reshape(40000, 28, 28, 1)
 
