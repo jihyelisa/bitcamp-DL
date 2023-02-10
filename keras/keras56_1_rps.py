@@ -42,8 +42,8 @@ np.save('./_data/rps/rps_y_train.npy', arr=y_train)
 
 
 '''
-x_train = np.load('./_data/rps/rps_x_train.npy')[:2000]
-y_train = np.load('./_data/rps/rps_y_train.npy')[:2000]
+x_train = np.load('./_data/rps/rps_x_train.npy')
+y_train = np.load('./_data/rps/rps_y_train.npy')
 
 print(x_train.shape, y_train.shape)
 # (5040, 100, 100, 3) (5040,)
